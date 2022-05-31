@@ -1,3 +1,15 @@
+export function getHeaderRenderIndexByWidth(screenWidth) {
+  if (screenWidth >= 1450) {
+    return tabList.length;
+  } else if (screenWidth < 1450 && screenWidth >= 1250) {
+    return tabList.length - 1;
+  } else if (screenWidth < 1250 && screenWidth >= 820) {
+    return tabList.length - 2;
+  } else {
+    return 0;
+  }
+}
+
 export const BlogTheme = {
   normal: {
     homeFontColor: "rgb(32,157,123)",
@@ -14,7 +26,7 @@ export const BlogTheme = {
 };
 
 export const BlogThemeKeys = {
-  NORMAL: "normal",
+  NORMAL: "normal", 
   DARKNORMAL: "darknormal",
 };
 

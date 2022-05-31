@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import React, { memo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar, Divider } from "antd";
 import { AuthorWrap } from "./style";
-import { BlogTheme, BlogThemeKeys, blogImgUrls } from "../../utils/constant";
-import Image from "next/image";
+import { BlogTheme, BlogThemeKeys, blogImgUrls } from "../../../utils/constant";
+import { SelfSelector } from "../../../utils/common";
+import { useDispatch } from "react-redux";
+import { changeBlogTheme } from "../../Header/store/actions";
 import {
   EnvironmentOutlined,
   MailOutlined,
@@ -14,21 +16,30 @@ const Author = () => {
   //state
   const [rotate, setRotate] = useState(0);
   const [color, setColor] = useState("");
-  const [theme, setTheme] = useState("normal"); //设置主题
-
-  useEffect(() => {
-    setColor(BlogTheme[theme].homeFontColor);
-  }, [theme]);    
+  const { theme } = SelfSelector({
+    header: ["theme"],
+  });
+  const dispatch = useDispatch();
 
   //hooks
+  useEffect(() => {
+    setColor(BlogTheme[theme].homeFontColor);
+  }, [theme]);
+
+  //methods
   const handleMouseOver = () => {
     if (rotate === 0) {
       setRotate(360);
-      setTheme("darknormal");
     } else if (rotate === 360) {
       setRotate(0);
-      setTheme("normal");
     }
+    dispatch(
+      changeBlogTheme(
+        theme === BlogThemeKeys.DARKNORMAL
+          ? BlogThemeKeys.NORMAL
+          : BlogThemeKeys.DARKNORMAL
+      )
+    );
   };
 
   return (

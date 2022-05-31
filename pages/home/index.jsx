@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import Header from "../components/Header/Header";
-import Author from "../components/Author/Author";
+import Header from "../../components/Header/Header";
+import RightBar from "../../components/RightBar";
 import { Row, Col, List } from "antd";
-import { HomeMainWrap } from "./indexStyle";
+import { HomeMainWrap } from "../home/indexStyle";
 import {
   CalendarOutlined,
   VideoCameraOutlined,
@@ -36,7 +36,7 @@ const Home = () => {
   return (
     <div>
       <Head>
-        <title>Home</title>
+        <title>Di迪的小站</title>
       </Head>
       {/* 头部组件 */}
       <Header></Header>
@@ -67,7 +67,7 @@ const Home = () => {
           ></List>
         </div>
         <div className="right-bar">
-          <Author />
+          <RightBar />
         </div>
       </HomeMainWrap>
     </div>

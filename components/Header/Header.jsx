@@ -1,40 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrap } from "../Header/style";
-import { Row, Col, Menu, Button } from "antd";
-import { BlogTheme, BlogThemeKeys, blogImgUrls } from "../../utils/constant";
-
+import { BlogTheme } from "../../utils/constant";
+import Router from "next/router";
+import { SelfSelector } from "../../utils/common";
+import { useDispatch } from "react-redux";
 import {
   HomeOutlined,
-  VideoCameraOutlined,
-  SmileOutlined,
+  BarChartOutlined,
+  EditOutlined,
+  WechatOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 
-const items = [
+const tabList = [
   { label: "首页", key: "home", icon: <HomeOutlined /> }, // 菜单项务必填写 key
-  { label: "视频", key: "video", icon: <VideoCameraOutlined /> },
-  { label: "生活", key: "life", icon: <SmileOutlined /> },
-  { label: "生活", key: "life", icon: <SmileOutlined /> },
-  { label: "生活", key: "life", icon: <SmileOutlined /> },
+  { label: "实战", key: "battle", icon: <EditOutlined /> },
+  { label: "归档", key: "life", icon: <BarChartOutlined /> },
+  { label: "互动", key: "interact", icon: <WechatOutlined /> },
+  { label: "关于", key: "about", icon: <UserOutlined /> },
 ];
+
 const Header = () => {
   //state
-  const [color, setColor] = useState("");
-  const [theme, setTheme] = useState("darknormal"); //设置主题
+  // const [theme, setTheme] = useState("darknormal"); //设置主题
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [renderIndex, setRenderIndex] = useState(5);
+  const { isHidden = false, theme } = SelfSelector({
+    header: ["isHidden", "theme"],
+  });
+  // console.log(isHidden, theme);
+  //hooks
+  // useEffect(() => {
+  //   setRenderIndex(getHeaderRenderIndexByWidth(screenWidth));
+  // }, [screenWidth]);
+  // useEffect(() => {
+  //   console.log
+  // }, []);
   return (
-    // <HeaderWrap>
-    //   <Row type="flex" justify="center">
-    //     <Col xs={24} sm={24} md={10} lg={15} xl={12}>
-    //       <span className="header-logo">Di迪</span>
-    //       <span className="header-txt">不会写代码的吉他手不是好程序员</span>
-    //     </Col>
-
-    //     <Col className="memu-div" xs={0} sm={0} md={14} lg={8} xl={6}>
-    //       <Menu mode="horizontal" items={items}></Menu>
-    //     </Col>
-    //   </Row>
-    // </HeaderWrap>
     <HeaderWrap
       className="flex-wrap"
+      isHidden={isHidden}
       ThemeColor={BlogTheme[theme].ThemeColor}
       HoverColor={BlogTheme[theme].HoverColor}
       fontColor={BlogTheme[theme].fontColor}
@@ -55,7 +60,24 @@ const Header = () => {
         </div>
         <div className="header-right">
           <div className="tab-list">
-            {/* <Menu mode="horizontal" items={items}></Menu> */}
+            {tabList.slice(0, renderIndex).map((item, index) => {
+              return (
+                <div className="tab-item" key={item.key}>
+                  <div
+                    className={[
+                      "nav-link",
+                      index === currentIndex ? "tab-active" : "",
+                    ].join(" ")}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                    }}
+                  >
+                    <span className="tab-item-icon">{item.icon}</span>
+                    <span className="tab-item-name">{item.label}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
