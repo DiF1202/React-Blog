@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 9090",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@zeit/next-css": "^1.0.1",
     "antd": "^4.20.5",
     "babel-plugin-import": "^1.13.5",
+    "babel-plugin-styled-components": "^2.0.7",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "next": "12.1.6",
@@ -18,7 +21,11 @@
     "next-transpile-modules": "^9.0.0",
     "next-with-less": "^2.0.5",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "customize-cra": "^1.0.0",

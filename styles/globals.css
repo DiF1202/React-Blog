@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+body{
+  background-color: #f6f6f6;  
+}

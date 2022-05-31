@@ -1,8 +1,14 @@
 import "../styles/globals.css";
-import "../styles/pages/common.less";
+import "../styles/normalize.css";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
 export default MyApp;
