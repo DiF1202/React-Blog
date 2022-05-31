@@ -16,6 +16,14 @@
                 "displayName": true, 
                 "preprocess": false 
             } 
+        ],
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "@": "./"
+                }
+            }
         ]
     ],
     //Next.js的总配置文件，相当于继承了它本身的所有配置

@@ -15,7 +15,7 @@ import {
 const Author = () => {
   //state
   const [rotate, setRotate] = useState(0);
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("white");
   const { theme } = SelfSelector({
     header: ["theme"],
   });

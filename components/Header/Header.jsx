@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrap } from "../Header/style";
+
 import { BlogTheme } from "../../utils/constant";
 import Router from "next/router";
 import { SelfSelector } from "../../utils/common";
