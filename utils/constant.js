@@ -26,7 +26,7 @@ export const BlogTheme = {
 };
 
 export const BlogThemeKeys = {
-  NORMAL: "normal", 
+  NORMAL: "normal",
   DARKNORMAL: "darknormal",
 };
 
