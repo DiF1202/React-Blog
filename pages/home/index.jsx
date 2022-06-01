@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { List } from "antd";
 import { HomeMainWrap } from "../home/indexStyle";
@@ -8,6 +8,8 @@ import {
   FireOutlined,
 } from "@ant-design/icons";
 import Layout from "../../components/Layout/layout";
+import { useDispatch } from "react-redux";
+import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
 const Home = () => {
   const [mylist, setMylist] = useState([
     {
@@ -31,7 +33,13 @@ const Home = () => {
         "摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂",
     },
   ]);
-  const [moveRight, setmoveRight] = useState("moveRight");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changMainMoveRight(true));
+  }, [dispatch]);
+
   return (
     <>
       <Head>

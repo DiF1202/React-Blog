@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { HeaderWrap } from "../Header/style";
-
-import { BlogTheme } from "../../utils/constant";
+import { BlogTheme, getHeaderRenderIndexByWidth } from "../../utils/constant";
 import { useRouter } from "next/router";
 import { SelfSelector } from "../../utils/common";
 import { useDispatch } from "react-redux";
+import { changMainMoveRight } from "../Layout/store/actionCreators";
 import {
   HomeOutlined,
   BarChartOutlined,
@@ -28,21 +28,28 @@ const tabList = [
 
 const Header = () => {
   //state
-  // const [theme, setTheme] = useState("darknormal"); //设置主题
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [renderIndex, setRenderIndex] = useState(5);
-  const { isHidden = false, theme } = SelfSelector({
+  const dispatch = useDispatch();
+  const {
+    isHidden = false,
+    theme,
+    screenWidth,
+  } = SelfSelector({
     header: ["isHidden", "theme"],
+    layout: ["screenWidth"],
   });
-  // console.log(isHidden, theme);
   //hooks
-  // useEffect(() => {
-  //   setRenderIndex(getHeaderRenderIndexByWidth(screenWidth));
-  // }, [screenWidth]);
-  // useEffect(() => {
-  //   console.log
-  // }, []);
+  useEffect(() => {
+    setRenderIndex(getHeaderRenderIndexByWidth(screenWidth, tabList));
+  }, [screenWidth]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+  }, []);
   return (
     <HeaderWrap
       className="flex-wrap"
@@ -76,6 +83,7 @@ const Header = () => {
                       index === currentIndex ? "tab-active" : "",
                     ].join(" ")}
                     onClick={() => {
+                      dispatch(changMainMoveRight(false));
                       setCurrentIndex(index);
                       router.push(item.link);
                     }}
@@ -93,4 +101,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

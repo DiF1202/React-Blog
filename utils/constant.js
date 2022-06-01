@@ -1,4 +1,4 @@
-export function getHeaderRenderIndexByWidth(screenWidth) {
+export function getHeaderRenderIndexByWidth(screenWidth, tabList) {
   if (screenWidth >= 1450) {
     return tabList.length;
   } else if (screenWidth < 1450 && screenWidth >= 1250) {

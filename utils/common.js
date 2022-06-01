@@ -31,6 +31,17 @@ export function getCurrentFormatTime() {
   let minutes = Math.floor(leavel2 / (60 * 1000)); // 计算剩余的分钟数
   let level3 = leavel2 - minutes * 60 * 1000;
   let seconds = Math.floor(level3 / 1000);
-
   return days + "天" + hours + "时" + minutes + "分" + seconds + "秒";
+}
+
+//防抖
+export function debounce(fn, delay) {
+  let timer = null;
+  const _debounce = function (...args) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.call(this, ...args);
+    }, delay);
+  };
+  return _debounce;
 }

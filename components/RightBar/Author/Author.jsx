@@ -64,6 +64,9 @@ const Author = () => {
           <div>
             <EnvironmentOutlined /> 福建 - 福州
           </div>
+          <div>
+            <EnvironmentOutlined /> 哔哩哔哩 / 网易
+          </div>
           <div>前端: React + Next.js + Antd</div>
           <div>后台: React + Vite + Antd</div>
           <div>后端: Node + Mysql</div>
