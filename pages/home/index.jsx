@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
   FireOutlined,
 } from "@ant-design/icons";
-import Layout from "../../components/layout/layout";
+import Layout from "../../components/Layout/layout";
 const Home = () => {
   const [mylist, setMylist] = useState([
     {

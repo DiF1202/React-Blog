@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HeaderWrap } from "../Header/style";
 
 import { BlogTheme } from "../../utils/constant";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { SelfSelector } from "../../utils/common";
 import { useDispatch } from "react-redux";
 import {
@@ -14,16 +14,22 @@ import {
 } from "@ant-design/icons";
 
 const tabList = [
-  { label: "首页", key: "home", icon: <HomeOutlined /> }, // 菜单项务必填写 key
-  { label: "实战", key: "battle", icon: <EditOutlined /> },
-  { label: "归档", key: "life", icon: <BarChartOutlined /> },
-  { label: "互动", key: "interact", icon: <WechatOutlined /> },
-  { label: "关于", key: "about", icon: <UserOutlined /> },
+  { label: "首页", key: "home", icon: <HomeOutlined />, link: "/home" }, // 菜单项务必填写 key
+  { label: "实战", key: "battle", icon: <EditOutlined />, link: "/battle" },
+  { label: "归档", key: "life", icon: <BarChartOutlined />, link: "/life" },
+  {
+    label: "互动",
+    key: "interact",
+    icon: <WechatOutlined />,
+    link: "/interact",
+  },
+  { label: "关于", key: "about", icon: <UserOutlined />, link: "/about" },
 ];
 
 const Header = () => {
   //state
   // const [theme, setTheme] = useState("darknormal"); //设置主题
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [renderIndex, setRenderIndex] = useState(5);
   const { isHidden = false, theme } = SelfSelector({
@@ -71,6 +77,7 @@ const Header = () => {
                     ].join(" ")}
                     onClick={() => {
                       setCurrentIndex(index);
+                      router.push(item.link);
                     }}
                   >
                     <span className="tab-item-icon">{item.icon}</span>
