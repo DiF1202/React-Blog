@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Head from "next/head";
 import Header from "../Header/Header";
 import Footer from "../Footer";
@@ -8,6 +8,8 @@ import RightBar from "../RightBar/index";
 import { useDispatch } from "react-redux";
 import { SelfSelector, debounce } from "@/utils/common";
 import { changMainMoveRight, changeScreenWidth } from "./store/actionCreators";
+import Script from "next/script";
+
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const { loading, moveRight, showLogin, screenWidth } = SelfSelector({
@@ -29,6 +31,11 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      {/* 背景 */}
+      <Script
+        src="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/ribbon.js"
+        strategy="lazyOnload"
+      />
       {/* 回到顶部 */}
       <BackTop></BackTop>
       {/* 头组件 */}
@@ -46,4 +53,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default memo(Layout);

@@ -2,9 +2,11 @@ export function getHeaderRenderIndexByWidth(screenWidth, tabList) {
   if (screenWidth >= 1450) {
     return tabList.length;
   } else if (screenWidth < 1450 && screenWidth >= 1250) {
-    return tabList.length - 1;
+    // return tabList.length - 1;
+    return tabList.length;
   } else if (screenWidth < 1250 && screenWidth >= 820) {
-    return tabList.length - 2;
+    // return tabList.length - 2;
+    return tabList.length;
   } else {
     return 0;
   }

@@ -31,7 +31,7 @@ const BackTop = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [dispatch, scrollTop]);
+  }, [dispatch, isHidden, scrollTop]);
 
   return (
     <BackTopWrap scrollTop={scrollTop}>
