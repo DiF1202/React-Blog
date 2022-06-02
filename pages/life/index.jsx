@@ -3,20 +3,29 @@ import Layout from "../../components/Layout/layout";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
+import { LifeWrap } from "./style";
+import dynamic from "next/dynamic";
 
 export default function Life() {
-  console.log("渲染渲染");
+  const MusicPlayer = dynamic(import("../../components/MusicPlayer"), {
+    ssr: false,
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(changMainMoveRight(true));
   }, [dispatch]);
   return (
-    <>
+    <LifeWrap>
       <Head>
-        <title>About</title>
+        <title>Di迪的成长记录</title>
       </Head>
-      Life
-    </>
+      <div className="music">
+        <p>我喜欢听的歌不多</p>
+        <p style={{ textAlign: "center" }}>歌曲库里只有40多首</p>
+        <p style={{ textAlign: "right" }}>我想把我喜欢的分享出来</p>
+      </div>
+      <MusicPlayer></MusicPlayer>
+    </LifeWrap>
   );
 }
 
