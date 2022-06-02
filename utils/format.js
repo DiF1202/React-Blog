@@ -14,3 +14,10 @@ export function getTextByCurrentTime(time) {
     }
   }
 }
+
+export function getPreviewImgUrl(url, { w, q = 100 }) {
+  if (w) {
+    return url + `?imageView2/2/w/${w}/q/${q}`;
+  }
+  return url + `?imageView2/q/${q}`;
+}
