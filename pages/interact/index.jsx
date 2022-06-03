@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
 
 export default function Iteract() {
-  console.log("渲染渲染");
+  // console.log("渲染渲染");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(changMainMoveRight(true));

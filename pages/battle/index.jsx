@@ -17,8 +17,6 @@ export default function Battle() {
   const [, updateState] = useState();
   const io = useRef();
   const forceUpdate = useCallback(() => updateState({}), []);
-
-  // const [io, setIo] = useState({});
   useEffect(() => {
     io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {

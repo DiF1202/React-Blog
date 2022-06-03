@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
 import { LifeWrap } from "./style";
 import dynamic from "next/dynamic";
+import TimeLine from "../../components/TimeLine";
 
 export default function Life() {
   const MusicPlayer = dynamic(import("../../components/MusicPlayer"), {
@@ -25,7 +26,7 @@ export default function Life() {
         <p style={{ textAlign: "right" }}>我想把我喜欢的分享出来</p>
       </div>
       <MusicPlayer></MusicPlayer>
-      
+      <TimeLine></TimeLine>
     </LifeWrap>
   );
 }

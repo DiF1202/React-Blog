@@ -12,7 +12,7 @@ const ProductionItem = (props) => {
   const ProductionRef = useRef();
   const { item, index, isShow, io } = props;
   useEffect(() => {
-    console.log(io);
+    // console.log(io);
     if (io.current) {
       io.current.observe(ProductionRef.current);
     }
