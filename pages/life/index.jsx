@@ -25,6 +25,7 @@ export default function Life() {
         <p style={{ textAlign: "right" }}>我想把我喜欢的分享出来</p>
       </div>
       <MusicPlayer></MusicPlayer>
+      
     </LifeWrap>
   );
 }

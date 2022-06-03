@@ -26,10 +26,19 @@ const tabList = [
   { label: "关于", key: "about", icon: <UserOutlined />, link: "/about" },
 ];
 
+const routerMap = {
+  "/home": 0,
+  "/battle": 1,
+  "/life": 2,
+  "/interact": 3,
+  "/about": 4,
+};
+
 const Header = () => {
   //state
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { pathname } = router;
+  const [currentIndex, setCurrentIndex] = useState(routerMap[pathname]);
   const [renderIndex, setRenderIndex] = useState(5);
   const dispatch = useDispatch();
   const {
@@ -50,6 +59,10 @@ const Header = () => {
       window.dispatchEvent(new Event("resize"));
     });
   }, []);
+  useEffect(() => {
+    setCurrentIndex(routerMap[pathname]);
+  }, [pathname]);
+
   return (
     <HeaderWrap
       className="flex-wrap"
@@ -83,9 +96,9 @@ const Header = () => {
                       index === currentIndex ? "tab-active" : "",
                     ].join(" ")}
                     onClick={() => {
-                      dispatch(changMainMoveRight(false));
-                      setCurrentIndex(index);
                       router.push(item.link);
+                      dispatch(changMainMoveRight(false));
+                      // setCurrentIndex(index);
                     }}
                   >
                     <span className="tab-item-icon">{item.icon}</span>
