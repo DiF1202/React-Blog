@@ -21,3 +21,11 @@ export function getPreviewImgUrl(url, { w, q = 100 }) {
   }
   return url + `?imageView2/q/${q}`;
 }
+
+//整理时间戳的函数
+export const handleTimeStamp = (nS) => {
+  if (nS) {
+    return new Date(parseInt(nS)).toLocaleString();
+  }
+  return "00/00/00";
+};

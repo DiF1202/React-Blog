@@ -15,13 +15,53 @@ import { SelfSelector } from "@/utils/common";
 import { debounce } from "@/utils/common";
 import { BlogTheme } from "@/utils/constant";
 import { articles } from "@/utils/mock"; //假数据
+import ArticleItem from "../../components/AriticleItem";
+
+const limit = 8;
+
 const Home = () => {
+  console.log(articles);
   //state
   const dispatch = useDispatch();
   const InputRef = useRef();
+  const pageRef = useRef();
   const { theme } = SelfSelector({
     header: "theme",
   });
+  //设置一个数组 记录每个实战项目数组是否可见
+  const [isShowArray, setIsShowArray] = useState([]);
+
+  //换页按钮触发
+  const pageChange = useCallback(
+    (e) => {
+      for (let i in isShowArray) {
+        isShowArray[i] = false;
+      }
+      setIsShowArray(isShowArray);
+      window.scrollTo(0, 0, 1000);
+    },
+    [isShowArray]
+  );
+
+  //为了懒加载
+  //强制刷新 为什么要强刷？先放着
+  const [, updateState] = useState();
+  const io = useRef();
+  const forceUpdate = useCallback(() => updateState({}), []);
+  useEffect(() => {
+    io.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio > 0) {
+          //记录数组是否可见
+          isShowArray[entry.target.className.split("homeItem")[1]] = true;
+          //更新数组
+          setIsShowArray(isShowArray);
+          forceUpdate();
+          io.current.unobserve(entry.target);
+        }
+      });
+    });
+  }, [forceUpdate, isShowArray]);
 
   //hooks
   useEffect(() => {
@@ -48,7 +88,35 @@ const Home = () => {
             suffix={<SearchOutlined />}
           />
         </div>
-        <div className="home_article_list"></div>
+        <div className="home_article_list">
+          {articles.map((item, index) => {
+            return (
+              <div key={item.article_id}>
+                <ArticleItem
+                  index={index}
+                  isShow={isShowArray[index]}
+                  isShowArray={isShowArray}
+                  homeFontColor={BlogTheme[theme].homeFontColor}
+                  // btnClick={(id) => GotoDetail(id)}
+                  io={io}
+                  item={item}
+                ></ArticleItem>
+              </div>
+            );
+          })}
+        </div>
+        <div ref={pageRef}>
+          <Pagination
+            className={"Pagination page"}
+            // defaultCurrent={currentPage}
+            total={articles.length}
+            responsive={true}
+            // current={currentPage}
+            showQuickJumper
+            pageSize={limit}
+            onChange={(e) => pageChange(e)}
+          />
+        </div>
       </HomeMainWrap>
     </>
   );

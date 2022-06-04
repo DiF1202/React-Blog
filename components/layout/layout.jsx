@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from "react";
 import Head from "next/head";
 import Header from "../Header/Header";
 import Footer from "../Footer";
-import BackTop from "../BackTop";
+import BackTop from "../BackTop/index";
 import { LayoutWrap } from "./indexStyle";
 import RightBar from "../RightBar/index";
 import { useDispatch } from "react-redux";
