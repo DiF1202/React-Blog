@@ -1,5 +1,247 @@
 //mock.js
 
+export const articles = [
+  {
+    article_id: 161,
+    secret: 0,
+    title: "使用nextJs + tailwindCss重构本博客",
+    openComment: "1",
+    articleType: 0,
+    readingCount: 456,
+    commentCount: 3,
+    createTime: "1646457672706",
+    isOwn: 0,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1646457668889.webp",
+    des: "在对博客的代码进行优化了一段时间后，发现还是不太满意，主要是首屏还是达不到自己的要求，以及seo.....",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+      {
+        tag_id: 6,
+        tag_name: "Css",
+        tag_color: "#FFC101",
+      },
+      {
+        tag_id: 13,
+        tag_name: "项目实战",
+        tag_color: "#00D35E",
+      },
+      {
+        tag_id: 14,
+        tag_name: "练习",
+        tag_color: "#5F3DFF",
+      },
+      {
+        tag_id: 26,
+        tag_name: "服务端",
+        tag_color: "#5488ea",
+      },
+    ],
+  },
+  {
+    article_id: 159,
+    secret: 0,
+    title: "从零开发一个自己的音乐播放器组件",
+    openComment: "1",
+    articleType: 0,
+    readingCount: 869,
+    commentCount: 23,
+    createTime: "1640246919466",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1645339664104.JPEG2000",
+    des: "最近想把react捡起来，只看文档肯定是不行的，我们需要实践来进行练习，就想到了开发一个音乐播放器组件，因为一个音乐播放自组件涉及挺多的， 虽然之前也搞过类似的组件，但是用到了其他的组件库。但是这次，全部的组件都由自己来开发。",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+      {
+        tag_id: 14,
+        tag_name: "练习",
+        tag_color: "#5F3DFF",
+      },
+    ],
+  },
+  {
+    article_id: 157,
+    secret: 0,
+    title: "前端埋点实践",
+    openComment: "1",
+    articleType: 1,
+    readingCount: 304,
+    commentCount: 2,
+    createTime: "1640090865980",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1646383099163.JPEG2000",
+    des: "在线上项目中,需要统计产品中用户行为和使用情况，从而可以从用户和产品的角度去了解用户群体，从而升级和迭代产品，使其更加贴近用户。用户行为数据可以通过前端数据监控的方式获得，除此之外，前端还需要实现性能监控和异常监控。性能监控包括首屏加载时间、白屏时间、http请求时间和http响应时间。异常监控包括前端脚本执行报错等。  ",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+      {
+        tag_id: 7,
+        tag_name: "JavaScript",
+        tag_color: "#972CEF",
+      },
+      {
+        tag_id: 20,
+        tag_name: "TCP",
+        tag_color: "#236390",
+      },
+    ],
+  },
+  {
+    article_id: 156,
+    secret: 0,
+    title: "使用jenkins 搭建自己的自动化部署",
+    openComment: "1",
+    articleType: 0,
+    readingCount: 389,
+    commentCount: 2,
+    createTime: "1639876985166",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1639877177115.JPEG2000",
+    des: "在自己开发项目的时候，尽管是一个小功能，很快就开发完成了，但是你还要去操作打包构建，部署到服务器上这些流程，非常的麻烦，尝试使用jenkins搭建自己的自动化部署的工具。",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 14,
+        tag_name: "练习",
+        tag_color: "#5F3DFF",
+      },
+      {
+        tag_id: 26,
+        tag_name: "服务端",
+        tag_color: "#5488ea",
+      },
+    ],
+  },
+  {
+    article_id: 155,
+    secret: 0,
+    title: "近期计划表",
+    openComment: "0",
+    articleType: 0,
+    readingCount: 602,
+    commentCount: 2,
+    createTime: "1639620616995",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1646384250554.JPEG2000",
+    des: "给自己拟定一些目标，一个一个的去完成，但不限于顺序、时间。只是让自己有一个大的方向，不至于不知道做什么。",
+    isTop: "1",
+    tags: [
+      {
+        tag_id: 14,
+        tag_name: "练习",
+        tag_color: "#5F3DFF",
+      },
+      {
+        tag_id: 24,
+        tag_name: "生活相关",
+        tag_color: "#ff5777",
+      },
+    ],
+  },
+  {
+    article_id: 154,
+    secret: 0,
+    title: "【技术方案】图片加载失败解决方案",
+    openComment: "1",
+    articleType: 0,
+    readingCount: 204,
+    commentCount: 6,
+    createTime: "1639396841878",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1646383154717.JPEG2000",
+    des: "有时候，一图胜千言。 但是图片会因为许多情况加载失败，那图没了，言也没了，这不就芭比Q了么？",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+      {
+        tag_id: 7,
+        tag_name: "JavaScript",
+        tag_color: "#972CEF",
+      },
+      {
+        tag_id: 14,
+        tag_name: "练习",
+        tag_color: "#5F3DFF",
+      },
+    ],
+  },
+  {
+    article_id: 153,
+    secret: 0,
+    title: "日常积累小知识",
+    openComment: "1",
+    articleType: 1,
+    readingCount: 184,
+    commentCount: 3,
+    createTime: "1638964117537",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1638964112130.JPEG2000",
+    des: "就是平时学习的时候，觉得对开发有用的一些小操作教程",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+    ],
+  },
+  {
+    article_id: 152,
+    secret: 0,
+    title: "手摸手带你阅读redux源码",
+    openComment: "1",
+    articleType: 1,
+    readingCount: 457,
+    commentCount: 3,
+    createTime: "1638964006192",
+    isOwn: 1,
+    likeCount: 0,
+    faceUrl:
+      "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1638964005404.JPEG2000",
+    des: "redux作为一款优秀的状态管理，在github拥有52.3k的star，可见大家对它的认可，虽然mobx等更加轻量，但是redux仍然值得研究学习一波\n",
+    isTop: "0",
+    tags: [
+      {
+        tag_id: 1,
+        tag_name: "React",
+        tag_color: "#ff5777",
+      },
+    ],
+  },
+];
+
 export const timeLineList = [
   {
     time: "2021-01-05",

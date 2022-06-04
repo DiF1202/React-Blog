@@ -1,73 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Head from "next/head";
-import { List } from "antd";
+import { List, Input, Pagination } from "antd";
 import { HomeMainWrap } from "../home/indexStyle";
 import {
   CalendarOutlined,
   VideoCameraOutlined,
   FireOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import Layout from "../../components/Layout/layout";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
+import { SelfSelector } from "@/utils/common";
+import { debounce } from "@/utils/common";
+import { BlogTheme } from "@/utils/constant";
+import { articles } from "@/utils/mock"; //假数据
 const Home = () => {
-  const [mylist, setMylist] = useState([
-    {
-      title: "Di迪学不会前端怎么办?",
-      context:
-        "摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂",
-    },
-    {
-      title: "Di迪学不会前端怎么办?>",
-      context:
-        "摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂",
-    },
-    {
-      title: "Di迪学不会前端怎么办?",
-      context:
-        "摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂",
-    },
-    {
-      title: "Di迪学不会前端怎么办?",
-      context:
-        "摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂摆烂",
-    },
-  ]);
-
+  //state
   const dispatch = useDispatch();
+  const InputRef = useRef();
+  const { theme } = SelfSelector({
+    header: "theme",
+  });
 
+  //hooks
   useEffect(() => {
     dispatch(changMainMoveRight(true));
   }, [dispatch]);
 
+  //留一下 搜索框要做防抖处理
+  const onSearch = () => {};
   return (
     <>
       <Head>
         <title>Di迪的小站</title>
       </Head>
       <HomeMainWrap>
-        <List
-          header={<div>最新日志</div>}
-          itemLayout="vertical"
-          dataSource={mylist}
-          renderItem={(item) => (
-            <List.Item>
-              <div className="list-title">{item.title}</div>
-              <div className="list-icon">
-                <span>
-                  <CalendarOutlined /> 2022-05-30
-                </span>
-                <span>
-                  <VideoCameraOutlined /> 视频教程
-                </span>
-                <span>
-                  <FireOutlined /> 5498人
-                </span>
-              </div>
-              <div className="list-context">{item.context}</div>
-            </List.Item>
-          )}
-        ></List>
+        <div className="home_content_header">
+          <span className="info">
+            博客日志
+            <span> xxx </span> 篇
+          </span>
+          <Input
+            ref={InputRef}
+            // onChange={(title) => onSearch(title)}
+            style={{ width: 150, borderRadius: 5, color: "#7a7a7a" }}
+            suffix={<SearchOutlined />}
+          />
+        </div>
+        <div className="home_article_list"></div>
       </HomeMainWrap>
     </>
   );

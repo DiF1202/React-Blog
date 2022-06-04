@@ -1,21 +1,60 @@
 import styled from "styled-components";
-
 export const HomeMainWrap = styled.div`
-  .list-title {
-    font-size: 1.3rem;
-    color: #1e90ff;
-    padding: 0 0.5rem;
+  padding: 15px 0px;
+  .home_content_header {
+    padding: 0 10px 5px 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .info {
+      color: #565656;
+      font-weight: 600;
+      span {
+        color: red;
+      }
+    }
   }
-  .list-context {
-    color: #777;
-    padding: 0.5rem;
+  .home_article_list {
+    width: 100%;
   }
-  .list-icon {
-    padding: 0.5rem 0;
-    color: #aaa;
+
+  //图片 到时候可以改下这个的样式
+  .image_box {
+    /* cursor: url("https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1605510419334.png"),
+    auto; */
+    max-height: 260px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 6px;
+    img {
+      transition: all 0.5s;
+      width: 100%;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
-  .list-icon span {
-    display: inline-block;
-    padding: 0 10px;
+  .Pagination {
+    text-align: center;
+    padding: 15px 0;
+  }
+  .page {
+    animation: rotationPage 0.6s;
+    /* transform:rotate(30deg) */
+  }
+  @keyframes rotationPage {
+    0% {
+      transform: rotate(30deg);
+    }
+
+    50% {
+      transform: rotate(-30deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  @media not screen and (min-width: 50em) {
   }
 `;
