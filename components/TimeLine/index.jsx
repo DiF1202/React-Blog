@@ -3,10 +3,9 @@ import { Timeline } from "antd";
 import { TimeWrap } from "./style";
 import { SelfSelector } from "@/utils/common";
 import { BlogTheme } from "@/utils/constant";
-import { timeLineList } from "@/utils/mock";
 import LineItem from "./LineItem";
 
-const TimeLine = () => {
+const TimeLine = ({ timeLineList }) => {
   //获取主题
   const { theme } = SelfSelector({
     header: "theme",
@@ -36,24 +35,25 @@ const TimeLine = () => {
   return (
     <TimeWrap>
       <Timeline pending="博主努力学习中..." mode="alternate">
-        {timeLineList.map((item, index) => {
-          return (
-            <Timeline.Item
-              style={{ marginLeft: "5px" }}
-              key={item.id}
-              color={item.color}
-            >
-              <LineItem
-                io={ io}
-                isShow={isShowArray[index]}
-                index={index}
-                tyle={{ marginLeft: "5px" }}
-                item={item}
-                homeFontColor={BlogTheme[theme].homeFontColor}
-              ></LineItem>
-            </Timeline.Item>
-          );
-        })}
+        {timeLineList &&
+          timeLineList.map((item, index) => {
+            return (
+              <Timeline.Item
+                style={{ marginLeft: "5px" }}
+                key={item.id}
+                color={item.color}
+              >
+                <LineItem
+                  io={io}
+                  isShow={isShowArray[index]}
+                  index={index}
+                  tyle={{ marginLeft: "5px" }}
+                  item={item}
+                  homeFontColor={BlogTheme[theme].homeFontColor}
+                ></LineItem>
+              </Timeline.Item>
+            );
+          })}
         <Timeline.Item>
           <div>
             <div

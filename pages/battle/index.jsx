@@ -6,9 +6,10 @@ import { changMainMoveRight } from "../../components/Layout/store/actionCreators
 import { SearchOutlined } from "@ant-design/icons";
 import { BattleWrap } from "./style";
 import { Input } from "antd";
-import { productionList } from "@/utils/mock.js";
 import ProductionItem from "../../components/ProcutionItem";
-export default function Battle() {
+import { getProductions } from "@/network/battle.js";
+
+const Battle = ({ productionList }) => {
   const dispatch = useDispatch();
   //设置一个数组 记录每个实战项目数组是否可见
   const [isShowArray, setIsShowArray] = useState([]);
@@ -36,6 +37,7 @@ export default function Battle() {
   useEffect(() => {
     dispatch(changMainMoveRight(true));
   }, [dispatch]);
+
   return (
     <BattleWrap>
       <Head>
@@ -66,8 +68,18 @@ export default function Battle() {
       </div>
     </BattleWrap>
   );
-}
+};
+
+//网络请求
+Battle.getInitialProps = async () => {
+  const res = await getProductions();
+  return {
+    productionList: res?.data?.doc,
+  };
+};
 
 Battle.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };
+
+export default Battle;

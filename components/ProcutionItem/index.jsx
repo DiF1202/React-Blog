@@ -23,7 +23,7 @@ const ProductionItem = (props) => {
       className={`battle${index}`}
       index={index}
       isShow={isShow}
-      img={getPreviewImgUrl(item.img, { q: 40 })}
+      img={getPreviewImgUrl(item.img, { q: 80 })}
     >
       <div className="production_top">
         <div className="innerInfo">

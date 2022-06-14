@@ -6,8 +6,9 @@ import { changMainMoveRight } from "../../components/Layout/store/actionCreators
 import { LifeWrap } from "./style";
 import dynamic from "next/dynamic";
 import TimeLine from "../../components/TimeLine";
+import { getAllTime } from "@/network/life.js";
 
-export default function Life() {
+export default function Life({ timeLineList }) {
   const MusicPlayer = dynamic(import("../../components/MusicPlayer"), {
     ssr: false,
   });
@@ -26,10 +27,18 @@ export default function Life() {
         <p style={{ textAlign: "right" }}>我想把我喜欢的分享出来</p>
       </div>
       <MusicPlayer></MusicPlayer>
-      <TimeLine></TimeLine>
+      <TimeLine timeLineList={timeLineList}></TimeLine>
     </LifeWrap>
   );
 }
+
+//网络请求
+Life.getInitialProps = async () => {
+  const res = await getAllTime();
+  return {
+    timeLineList: res?.data?.timeLineList,
+  };
+};
 
 Life.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;

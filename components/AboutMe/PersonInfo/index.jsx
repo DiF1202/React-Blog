@@ -12,7 +12,7 @@ const PersonInfo = () => {
         <div className="avat">
           <img
             style={{ width: "100px" }}
-            src="https://images.nowcoder.com/images/20220514/278870688_1652530572168/D6969C98BC2C0947BA4D4AA0CDF33902?x-oss-process=image/resize,m_mfit,h_100,w_100"
+            src="https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/Snipaste_2022-06-14_03-15-00.jpg?imageView2/1/w/100/q/100"
             alt=""
           />
         </div>
