@@ -15,7 +15,6 @@ const ArticleItem = (props) => {
   const ArticleRef = useRef();
   const { item, index, homeFontColor, isShow, io } = props;
   useEffect(() => {
-    // console.log(io);
     if (io.current) {
       io.current.observe(ArticleRef.current);
     }
@@ -28,15 +27,17 @@ const ArticleItem = (props) => {
       className={["articeItem", `homeItem${index}`].join(" ")}
     >
       {/* 下面这一行是右上角的实在小图标 */}
-      {item.articleType === 1 && <div className="bat">实战</div>}
+      {item.isBattle === 1 && <div className="bat">实战</div>}
       <div
         onClick={() => {
-          router.push(`detail/${item.article_id}`);
+          router.push({
+            pathname: `detail/${item.article_id}`,
+          });
         }}
       >
         <h2 className="title">{item.title}</h2>
         <div className="article_info">
-          {item.isTop === "1" && (
+          {item.isTop === 1 && (
             <div className="page_top">
               <ToTopOutlined></ToTopOutlined> 本页置顶
             </div>
@@ -45,11 +46,12 @@ const ArticleItem = (props) => {
             <ScheduleOutlined
               style={{ color: "lightseagreen", fontSize: "16px" }}
             />
-            {handleTimeStamp(item.createTime)}
+            {/* {handleTimeStamp(item.createTime)} */}
+            {item.createTime}
           </div>
 
           {/* 渲染tag */}
-          {item.tags.map((tag) => {
+          {item?.tags?.map((tag) => {
             return (
               <span
                 key={tag.tag_id}

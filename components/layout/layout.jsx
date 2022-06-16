@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, Suspense } from "react";
 import Head from "next/head";
 import Header from "../Header/Header";
 import Footer from "../Footer";
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { SelfSelector, debounce } from "@/utils/common";
 import { changMainMoveRight, changeScreenWidth } from "./store/actionCreators";
 import Script from "next/script";
-
+import Loading from "../Loading";
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const { loading, moveRight, showLogin, screenWidth } = SelfSelector({
@@ -41,12 +41,14 @@ const Layout = ({ children }) => {
       {/* 头组件 */}
       <Header></Header>
       {/* 首页主题两栏布局 */}
-      <LayoutWrap className="flex-wrap" moveRight={moveRight}>
-        <div className="left-content">{children}</div>
-        <div className="right-bar">
-          <RightBar />
-        </div>
-      </LayoutWrap>
+      <Suspense fallback={<Loading />}>
+        <LayoutWrap className="flex-wrap" moveRight={moveRight}>
+          <div className="left-content">{children}</div>
+          <div className="right-bar">
+            <RightBar />
+          </div>
+        </LayoutWrap>
+      </Suspense>
       {/* Footer组件 */}
       <Footer></Footer>
     </>

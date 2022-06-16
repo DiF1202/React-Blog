@@ -12,6 +12,7 @@ import {
   WechatOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
 
 const tabList = [
   { label: "首页", key: "home", icon: <HomeOutlined />, link: "/home" }, // 菜单项务必填写 key
@@ -96,13 +97,17 @@ const Header = () => {
                       index === currentIndex ? "tab-active" : "",
                     ].join(" ")}
                     onClick={() => {
-                      router.push(item.link);
+                      // router.push(item.link);
                       dispatch(changMainMoveRight(false));
                       // setCurrentIndex(index);
                     }}
                   >
-                    <span className="tab-item-icon">{item.icon}</span>
-                    <span className="tab-item-name">{item.label}</span>
+                    <Link href={`${item.link}`}>
+                      <div>
+                        <span className="tab-item-icon">{item.icon}</span>
+                        <span className="tab-item-name">{item.label}</span>
+                      </div>
+                    </Link>
                   </div>
                 </div>
               );

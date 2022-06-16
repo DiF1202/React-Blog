@@ -3,7 +3,7 @@ import Layout from "../../components/Layout/layout";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
-import { InteractWrap } from "./style";
+import { InteractWrap } from "../../styles/pages/interact";
 import { getFriendLinks } from "@/network/interact.js";
 import FrendsLinks from "../../components/Friends/links";
 import { Button, Input, message, Switch } from "antd";

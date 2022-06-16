@@ -35,25 +35,24 @@ const TimeLine = ({ timeLineList }) => {
   return (
     <TimeWrap>
       <Timeline pending="博主努力学习中..." mode="alternate">
-        {timeLineList &&
-          timeLineList.map((item, index) => {
-            return (
-              <Timeline.Item
-                style={{ marginLeft: "5px" }}
-                key={item.id}
-                color={item.color}
-              >
-                <LineItem
-                  io={io}
-                  isShow={isShowArray[index]}
-                  index={index}
-                  tyle={{ marginLeft: "5px" }}
-                  item={item}
-                  homeFontColor={BlogTheme[theme].homeFontColor}
-                ></LineItem>
-              </Timeline.Item>
-            );
-          })}
+        {timeLineList?.map((item, index) => {
+          return (
+            <Timeline.Item
+              style={{ marginLeft: "5px" }}
+              key={item.id}
+              color={item.color}
+            >
+              <LineItem
+                io={io}
+                isShow={isShowArray[index]}
+                index={index}
+                tyle={{ marginLeft: "5px" }}
+                item={item}
+                homeFontColor={BlogTheme[theme].homeFontColor}
+              ></LineItem>
+            </Timeline.Item>
+          );
+        })}
         <Timeline.Item>
           <div>
             <div

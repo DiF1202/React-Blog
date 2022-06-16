@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from "react";
-import { AboutWrap } from "./style";
+import { AboutWrap } from "../../styles/pages/about";
 import Layout from "../../components/Layout/layout";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
@@ -8,9 +8,9 @@ import { changMainMoveRight } from "../../components/Layout/store/actionCreators
 import PersonInfo from "../../components/AboutMe/PersonInfo";
 import Clock from "../../components/AboutMe/Clock";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { SelfSelector } from "@/utils/common";
 import { getSkillsAction } from "@/redux/reducers/about/actionCreators";
-import rehypeRaw from "rehype-raw";
 import { getAbout } from "@/network/about";
 
 const About = ({ markdown }) => {

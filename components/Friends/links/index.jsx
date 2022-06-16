@@ -10,17 +10,16 @@ export default memo(function FriendLink(props) {
   });
   return (
     <FriendItemList>
-      {friends &&
-        friends.map((friend, index) => {
-          return (
-            <FriendItem
-              friend={friend}
-              homeFontColor={BlogTheme[theme].homeFontColor}
-              key={friend.id}
-              index={index}
-            ></FriendItem>
-          );
-        })}
+      {friends?.map((friend, index) => {
+        return (
+          <FriendItem
+            friend={friend}
+            homeFontColor={BlogTheme[theme].homeFontColor}
+            key={friend.id}
+            index={index}
+          ></FriendItem>
+        );
+      })}
     </FriendItemList>
   );
 });

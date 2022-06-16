@@ -33,9 +33,9 @@ export const BlogThemeKeys = {
 };
 
 export const blogImgUrls = {
-  qq: "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/qq.png?imageView2/1/w/100/q/80",
+  qq: "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/qq-v/qq.jpg?imageView2/1/w/100/q/80",
   wechat:
-    "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/wechat.jpg?imageView2/1/w/100/q/80",
+    "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/qq-v/we.jpg?imageView2/1/w/100/q/80",
   avator1:
     "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/QQ%E5%9B%BE%E7%89%8720220102015459.jpg?imageView2/1/w/100/q/80",
   avator2:
@@ -50,4 +50,3 @@ export const blogImgUrls = {
   homeModalPic2:
     "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/DSY-1640960246399.JPEG2000?imageView2/1/q/70",
 };
-

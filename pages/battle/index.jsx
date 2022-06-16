@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
 import { SearchOutlined } from "@ant-design/icons";
-import { BattleWrap } from "./style";
+import { BattleWrap } from "../../styles/pages/battle";
 import { Input } from "antd";
 import ProductionItem from "../../components/ProcutionItem";
 import { getProductions } from "@/network/battle.js";
@@ -53,18 +53,17 @@ const Battle = ({ productionList }) => {
         />
       </div>
       <div className="production_list">
-        {productionList &&
-          productionList.map((item, index) => {
-            return (
-              <ProductionItem
-                io={io}
-                isShow={isShowArray[index]}
-                item={item}
-                index={index}
-                key={item.production_id}
-              ></ProductionItem>
-            );
-          })}
+        {productionList?.map((item, index) => {
+          return (
+            <ProductionItem
+              io={io}
+              isShow={isShowArray[index]}
+              item={item}
+              index={index}
+              key={item.production_id}
+            ></ProductionItem>
+          );
+        })}
       </div>
     </BattleWrap>
   );

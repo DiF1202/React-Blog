@@ -3,7 +3,7 @@ import Layout from "../../components/Layout/layout";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
-import { LifeWrap } from "./style";
+import { LifeWrap } from "../../styles/pages/life";
 import dynamic from "next/dynamic";
 import TimeLine from "../../components/TimeLine";
 import { getAllTime } from "@/network/life.js";

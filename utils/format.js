@@ -10,7 +10,7 @@ export function getTextByCurrentTime(time) {
     if (parseInt(currentTime.substr(2, 2)) <= 9)
       return "累了一天了,我相信你一定会越来越强的!";
     else {
-      return "如果太晚了,就看看电视,早点休息吧~~";
+      return "如果太晚了,就早点休息吧,不许卷了~~";
     }
   }
 }

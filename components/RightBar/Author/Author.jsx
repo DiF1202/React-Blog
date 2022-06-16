@@ -57,8 +57,8 @@ const Author = () => {
         />
         <div className="person_name">DiF1202</div>
         <div className="school_info">
-          <div>福大机械</div>
-          <div>2019-2023 学生</div>
+          <div>福州大学</div>
+          <div>2019-2023 </div>
         </div>
         <div className="person_info">
           <div>
@@ -69,11 +69,11 @@ const Author = () => {
           </div>
           <div>前端: React + Next.js + Antd</div>
           <div>后台: React + Vite + Antd</div>
-          <div>后端: Node + Mysql</div>
+          <div>后端: Express + Mysql</div>
           <div>
             <MailOutlined /> 346274777@qq.com
           </div>
-          <div className="dubai">有很多想去的地方</div>
+          <div className="dubai">真的好想好想去大厂</div>
           <Divider orientation="center" style={{ color }}>
             社交帐号
           </Divider>

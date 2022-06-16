@@ -4,6 +4,14 @@ import { Provider } from "react-redux";
 import store from "../redux/store";
 import "@/utils/dialog";
 import { useState, useEffect } from "react";
+import Router from "next/router";
+import NProgress from "nprogress";
+
+Router.onRouteChangeStart = (url) => {
+  NProgress.start();
+};
+Router.onRouteChangeComplete = () => NProgress.done();
+Router.onRouteChangeError = () => NProgress.done();
 
 function MyApp({ Component, pageProps }) {
   const [showChild, setShowChild] = useState(false);
