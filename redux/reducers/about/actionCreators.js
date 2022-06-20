@@ -1,6 +1,6 @@
 import * as actionTypes from "./constants";
 import { getSkills } from "@/network/about.js";
-
+import { getPosition } from "@/network/about";
 //获取博主技能点
 export const getSkillsAction = () => {
   return (dispatch) => {
@@ -14,5 +14,31 @@ const changeSkills = (skills) => {
   return {
     type: actionTypes.CHANGE_SKILLS,
     skills,
+  };
+};
+
+//获取ip信息
+export const getIpAction = () => {
+  return (dispatch) => {
+    getPosition().then((res) => {
+      const position =
+        res.data?.position.province + " " + res.data?.position.city;
+      const ip = res.data?.ip;
+      dispatch(changeIpAction(ip));
+      dispatch(changePositionAction(position));
+    });
+  };
+};
+
+const changeIpAction = (ip) => {
+  return {
+    type: actionTypes.CHANGE_IP,
+    ip,
+  };
+};
+const changePositionAction = (position) => {
+  return {
+    type: actionTypes.CHANGE_POSITION,
+    position,
   };
 };

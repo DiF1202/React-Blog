@@ -5,7 +5,7 @@ const defaultState = Map({
   // 是都展示主体loading
   loading: true,
   moveRight: false,
-  showLogin: false,
+  showLogin: false, //展示登录弹框
   username: null,
   // 滚动的距离
   scrollTop: 0,

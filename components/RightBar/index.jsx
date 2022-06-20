@@ -2,15 +2,18 @@ import React, { memo, useState, useEffect } from "react";
 import Author from "./Author/Author";
 import Position from "./position/index";
 import { useRouter } from "next/router";
-
 import Skills from "./Skills";
 import Tags from "./Tags";
+import Anchor from "./Anchor";
+
 function RenderCmpByRoutes(route, homeFontColor, hotArticles, history) {
   switch (route) {
     case "/about":
       return <Skills />;
     case "/home":
       return <Tags />;
+    case "/detail/[id]":
+      return <Anchor />;
     default:
       return null;
   }

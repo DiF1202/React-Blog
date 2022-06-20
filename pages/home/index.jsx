@@ -20,7 +20,7 @@ import { getHomeArticles } from "@/network/home.js";
 import { useRouter } from "next/router";
 const limit = 8;
 
-const Home = ({ articles, total, currentPage }) => {
+const Home = ({ articles, total, currentPage, tag_id }) => {
   //state
   const dispatch = useDispatch();
   const InputRef = useRef();
@@ -66,10 +66,11 @@ const Home = ({ articles, total, currentPage }) => {
         pathname: "/",
         query: {
           page: e,
+          tag_id,
         },
       });
     },
-    [isShowArray, router]
+    [isShowArray, router, tag_id]
   );
   //留一下 搜索框要做防抖处理
   const onSearch = () => {};
@@ -128,11 +129,24 @@ const Home = ({ articles, total, currentPage }) => {
 Home.getInitialProps = async (context) => {
   const { query } = context;
   const page = query?.page !== undefined ? query?.page : 1;
-  const res = await getHomeArticles(limit, page);
+  const tag_id = query?.tag_id !== undefined ? query?.tag_id : -1;
+  const res = await getHomeArticles(limit, page, parseInt(tag_id));
+  //处理置顶逻辑
+  let articles = res?.data?.articles;
+  if (articles?.length > 2) {
+    for (let i = 0; i < articles.length; i++) {
+      let item = articles[i];
+      if (item.isTop === 1) {
+        articles.splice(i, 1);
+        articles.unshift(item);
+      }
+    }
+  }
   return {
     total: res?.data?.total,
-    articles: res?.data?.articles,
     currentPage: parseInt(page),
+    articles,
+    tag_id: parseInt(tag_id),
   };
 };
 

@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="flex-wrap">
         <span className="left">COS对象存储</span>
         <a href="#">点我回到顶部QAQ</a>
-        <span className="right">托管于阿里云</span>
+        <span className="right">托管于腾讯云</span>
       </div>
       <div className="flex-wrap">
         <span>本站已苟且偷生 </span>

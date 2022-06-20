@@ -1,17 +1,23 @@
 /* eslint-disable react/no-children-prop */
-import React, { useState, useEffect } from "react";
+import React, { memo, useEffect, useState, useRef } from "react";
 import Layout from "../../components/Layout/layout";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
 import { DetailWrapper } from "../../styles/pages/detail";
-import { getArticleDetail } from "@/network/detail.js";
+import {
+  getArticleDetail,
+  changeArticleReadingCount,
+} from "@/network/detail.js";
 import { BlogTheme } from "@/utils/constant";
 import { SelfSelector } from "@/utils/common";
 import { useRouter } from "next/router";
+import { getNodeInfo } from "@/utils/common";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { blogImgUrls } from "@/utils/constant";
+import { changeAnchorListAction } from "@/redux/reducers/detail/actionCreators";
 import {
   ScheduleOutlined,
   MessageOutlined,
@@ -23,9 +29,12 @@ import {
 } from "@ant-design/icons";
 import { Divider, message, Popover } from "antd";
 
+const payImgStyle = { width: "100px", height: "100px" };
+const midImgStyle = { display: "block", margin: "0,auto" };
 const dividerStyle = { color: "#3c78d8", fontSize: 18 };
 
 const Detail = ({ articleDetail }) => {
+  const mdRef = useRef();
   const router = useRouter();
   const { theme } = SelfSelector({
     header: "theme",
@@ -35,7 +44,18 @@ const Detail = ({ articleDetail }) => {
   // hooks
   useEffect(() => {
     dispatch(changMainMoveRight(true));
+    // 更新阅读量
+    changeArticleReadingCount(articleDetail.article_id);
+  }, [articleDetail.article_id, dispatch]);
+
+  useEffect(() => {
+    const HList = mdRef.current.querySelectorAll("h1,h2,h3,h4,h5");
+    const AnchorArray = getNodeInfo(HList);
+    // console.log(AnchorArray);
+    dispatch(changeAnchorListAction(AnchorArray));
+    //更改文章标题
   }, [dispatch]);
+
   return (
     <DetailWrapper homeFontColor={BlogTheme[theme].homeFontColor}>
       <Head>
@@ -97,10 +117,11 @@ const Detail = ({ articleDetail }) => {
       <div style={{ color: "#6B6A6A", padding: "10px" }}>
         {articleDetail.des}
       </div>
+
       <Divider orientation="center" style={dividerStyle}>
         正文
       </Divider>
-      <div className="markdown-body">
+      <div className="markdown-body" ref={mdRef}>
         <ReactMarkdown
           children={articleDetail.content}
           rehypePlugins={[rehypeRaw]}
@@ -124,6 +145,41 @@ const Detail = ({ articleDetail }) => {
           })}
         </div>
       </div>
+      <Divider orientation="center" style={{ fontSize: "30px" }}>
+        <Popover
+          content={
+            <div>
+              <img alt="" style={payImgStyle} src={blogImgUrls.wepay} />
+              <img alt="" style={payImgStyle} src={blogImgUrls.airpay} />
+            </div>
+          }
+          title="打赏...谢谢老板！"
+        >
+          <RedEnvelopeOutlined
+            style={{ color: "#ff5777", padding: "0 10px" }}
+          />
+        </Popover>
+        <Popover
+          content={
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img alt="" src={blogImgUrls.qq} />
+            </div>
+          }
+          title="我的QQ"
+        >
+          <QqOutlined style={{ color: "#1B92FF", padding: "0 10px" }} />
+        </Popover>
+        <Popover
+          content={
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img alt="" src={blogImgUrls.wechat} />
+            </div>
+          }
+          title="我的微信"
+        >
+          <WechatOutlined style={{ color: "#1CD66C", padding: "0 10px" }} />
+        </Popover>
+      </Divider>
     </DetailWrapper>
   );
 };

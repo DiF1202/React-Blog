@@ -4,28 +4,24 @@ import { BlogTheme, getHeaderRenderIndexByWidth } from "../../utils/constant";
 import { useRouter } from "next/router";
 import { SelfSelector } from "../../utils/common";
 import { useDispatch } from "react-redux";
-import { changMainMoveRight } from "../Layout/store/actionCreators";
+import {
+  changMainMoveRight,
+  changeLoginPanelShow,
+  changeUserName,
+} from "../Layout/store/actionCreators";
+import { changeLeftVisibleAction } from "@/redux/reducers/drawer/actionCreators";
 import {
   HomeOutlined,
   BarChartOutlined,
   EditOutlined,
   WechatOutlined,
   UserOutlined,
+  QqOutlined,
+  CaretDownOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-
-const tabList = [
-  { label: "首页", key: "home", icon: <HomeOutlined />, link: "/home" }, // 菜单项务必填写 key
-  { label: "实战", key: "battle", icon: <EditOutlined />, link: "/battle" },
-  { label: "归档", key: "life", icon: <BarChartOutlined />, link: "/life" },
-  {
-    label: "互动",
-    key: "interact",
-    icon: <WechatOutlined />,
-    link: "/interact",
-  },
-  { label: "关于", key: "about", icon: <UserOutlined />, link: "/about" },
-];
+import { Menu, Dropdown, message } from "antd";
 
 const routerMap = {
   "/home": 0,
@@ -46,13 +42,17 @@ const Header = () => {
     isHidden = false,
     theme,
     screenWidth,
+    visible,
+    username,
   } = SelfSelector({
     header: ["isHidden", "theme"],
-    layout: ["screenWidth"],
+    layout: ["screenWidth", "username"],
+    drawer: "visible",
   });
   //hooks
   useEffect(() => {
     setRenderIndex(getHeaderRenderIndexByWidth(screenWidth, tabList));
+    console.log(renderIndex);
   }, [screenWidth]);
 
   useEffect(() => {
@@ -63,7 +63,66 @@ const Header = () => {
   useEffect(() => {
     setCurrentIndex(routerMap[pathname]);
   }, [pathname]);
-
+  // methods
+  const showLogin = () => {
+    dispatch(changeLoginPanelShow(true));
+  };
+  // 退出登录
+  const loginOut = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
+    dispatch(changeUserName(null));
+    message.success("成功退出");
+  };
+  const tabList = [
+    {
+      title: "首页",
+      key: "home",
+      icon: <HomeOutlined />,
+      link: "/home",
+      label: <Link href="/home">首页</Link>,
+    }, // 菜单项务必填写 key
+    {
+      title: "实战",
+      key: "battle",
+      icon: <EditOutlined />,
+      link: "/battle",
+      label: <Link href="/battle">实战</Link>,
+    },
+    {
+      title: "归档",
+      key: "life",
+      icon: <BarChartOutlined />,
+      link: "/life",
+      label: <Link href="/life">归档</Link>,
+    },
+    {
+      title: "互动",
+      key: "interact",
+      icon: <WechatOutlined />,
+      link: "/interact",
+      label: <Link href="/interact">互动</Link>,
+    },
+    {
+      title: "关于",
+      key: "about",
+      icon: <UserOutlined />,
+      link: "/about",
+      label: <Link href="/about">关于</Link>,
+    },
+    {
+      title: username ? "退出登录" : "邮箱登录",
+      key: "login",
+      icon: <QqOutlined />,
+      label: username ? (
+        <span onClick={loginOut}>退出登录</span>
+      ) : (
+        <span onClick={showLogin}>登录</span>
+      ),
+    },
+  ];
   return (
     <HeaderWrap
       className="flex-wrap"
@@ -73,6 +132,12 @@ const Header = () => {
       fontColor={BlogTheme[theme].fontColor}
     >
       <div className="header-box">
+        <div
+          className="left-menu"
+          onClick={() => dispatch(changeLeftVisibleAction(!visible))}
+        >
+          <MenuFoldOutlined />
+        </div>
         <div className="blog-info">
           <div
             className="blog-title"
@@ -102,16 +167,37 @@ const Header = () => {
                       // setCurrentIndex(index);
                     }}
                   >
-                    <Link href={`${item.link}`}>
-                      <div>
+                    {item.key !== "login" ? (
+                      <Link href={`${item.link}`}>
+                        <div>
+                          <span className="tab-item-icon">{item.icon}</span>
+                          <span className="tab-item-name">{item.title}</span>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div onClick={username ? loginOut : showLogin}>
                         <span className="tab-item-icon">{item.icon}</span>
-                        <span className="tab-item-name">{item.label}</span>
+                        <span className="tab-item-name">{item.title}</span>
                       </div>
-                    </Link>
+                    )}
                   </div>
                 </div>
               );
             })}
+            {renderIndex !== 6 ? (
+              <Dropdown overlay={<Menu items={tabList.slice(renderIndex)} />}>
+                <a
+                  className="ant-dropdown-link"
+                  style={{ color: "white", fontSize: "13px" }}
+                  href="@"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <CaretDownOutlined />
+                </a>
+              </Dropdown>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

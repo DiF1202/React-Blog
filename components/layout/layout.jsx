@@ -3,6 +3,8 @@ import Head from "next/head";
 import Header from "../Header/Header";
 import Footer from "../Footer";
 import BackTop from "../BackTop/index";
+import LoginPanel from "../LoginPanel";
+import LeftDrawer from "../Drawer";
 import { LayoutWrap } from "./indexStyle";
 import RightBar from "../RightBar/index";
 import { useDispatch } from "react-redux";
@@ -10,6 +12,7 @@ import { SelfSelector, debounce } from "@/utils/common";
 import { changMainMoveRight, changeScreenWidth } from "./store/actionCreators";
 import Script from "next/script";
 import Loading from "../Loading";
+import { getIpAction } from "@/redux/reducers/about/actionCreators";
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const { loading, moveRight, showLogin, screenWidth } = SelfSelector({
@@ -24,22 +27,23 @@ const Layout = ({ children }) => {
     window.addEventListener("resize", resize);
     //改变右边的动画
     dispatch(changMainMoveRight(true));
+    // 拿IP
+    dispatch(getIpAction());
     return (_) => {
       window.removeEventListener("resize", resize);
     };
   }, [dispatch]);
 
   return (
-    <>
-      {/* 背景 */}
-      <Script
-        src="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/ribbon.js"
-        strategy="lazyOnload"
-      />
+    <div>
+      {/* 登录框 */}
+      {showLogin && <LoginPanel />}
       {/* 回到顶部 */}
       <BackTop></BackTop>
       {/* 头组件 */}
       <Header></Header>
+      {/* 左边抽屉 */}
+      {screenWidth < 800 && <LeftDrawer />}
       {/* 首页主题两栏布局 */}
       <Suspense fallback={<Loading />}>
         <LayoutWrap className="flex-wrap" moveRight={moveRight}>
@@ -51,7 +55,12 @@ const Layout = ({ children }) => {
       </Suspense>
       {/* Footer组件 */}
       <Footer></Footer>
-    </>
+      {/* 背景 */}
+      <Script
+        src="https://blog-1303885568.cos.ap-chengdu.myqcloud.com/img/ribbon.js"
+        strategy="lazyOnload"
+      />
+    </div>
   );
 };
 

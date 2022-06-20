@@ -2,15 +2,15 @@ export function getTextByCurrentTime(time) {
   const currentTime = time.substr(10, 10);
   if (currentTime.includes("上午")) {
     if (parseInt(currentTime.substr(2, 2)) <= 10) {
-      return "早上好啊！昨晚有休息好吗？";
+      return "早上好啊,今天打算卷什么?";
     } else {
-      return "今天中午一定要吃的饱饱的！";
+      return "对自己要好一点,奖励自己一下,今天中午一定要吃点好的！";
     }
   } else {
     if (parseInt(currentTime.substr(2, 2)) <= 9)
-      return "累了一天了,我相信你一定会越来越强的!";
+      return "卷了一天了,我相信你一定会越来越强的!";
     else {
-      return "如果太晚了,就早点休息吧,不许卷了~~";
+      return "这么晚了又偷看我的博客被逮住了吧,不许卷了~~";
     }
   }
 }

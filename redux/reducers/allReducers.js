@@ -7,10 +7,16 @@ import { reducer as LayoutReducer } from "../../components/Layout/store";
 import { reducer as aboutReducer } from "./about";
 //右边栏 tags
 import { reducer as rightReducer } from "./rightbar";
+//详情页
+import { reducer as detailReducer } from "./detail";
+//左边抽屉
+import { reducer as drawerReducer } from "./drawer";
 
 export default combineReducers({
   header: headerReducer,
   layout: LayoutReducer,
   about: aboutReducer,
   right: rightReducer,
+  detail: detailReducer,
+  drawer: drawerReducer,
 });

@@ -4,3 +4,4 @@ import request from "./index";
 export function getAllTime() {
   return request("/timeline/get_all_time");
 }
+

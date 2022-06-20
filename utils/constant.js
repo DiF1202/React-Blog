@@ -3,10 +3,10 @@ export function getHeaderRenderIndexByWidth(screenWidth, tabList) {
     return tabList.length;
   } else if (screenWidth < 1450 && screenWidth >= 1250) {
     // return tabList.length - 1;
-    return tabList.length;
+    return tabList.length - 1;
   } else if (screenWidth < 1250 && screenWidth >= 820) {
     // return tabList.length - 2;
-    return tabList.length;
+    return tabList.length - 2;
   } else {
     return 0;
   }
@@ -39,10 +39,11 @@ export const blogImgUrls = {
   avator1:
     "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/QQ%E5%9B%BE%E7%89%8720220102015459.jpg?imageView2/1/w/100/q/80",
   avator2:
-    "https://img1.baidu.com/it/u=2104458624,1305366899&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=500",
-  wepay: "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/wepay.png",
+    "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/Snipaste_2022-06-14_03-15-00.jpg?imageView2/1/w/100/q/80",
+  wepay:
+    "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/qq-v/w1ePay.jpg",
   airpay:
-    "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/airpay.png",
+    "https://difei-1305004956.cos.ap-shanghai.myqcloud.com/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%93/qq-v/zhifubao.jpg",
   comment:
     "https://blog-1303885568.cos.ap-chengdu.myqcloud.com/useImg/comment.png",
   homeModalPic1:

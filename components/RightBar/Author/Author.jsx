@@ -73,7 +73,7 @@ const Author = () => {
           <div>
             <MailOutlined /> 346274777@qq.com
           </div>
-          <div className="dubai">真的好想好想去大厂</div>
+          <div className="dubai">真的好想留在大厂</div>
           <Divider orientation="center" style={{ color }}>
             社交帐号
           </Divider>

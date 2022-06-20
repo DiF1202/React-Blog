@@ -81,9 +81,6 @@ export const DetailWrapper = styled.div`
     }
   }
 
-  .AnchorMenu {
-    display: none;
-  }
   @media not screen and (min-width: 50em) {
     .AnchorMenu {
       display: block;

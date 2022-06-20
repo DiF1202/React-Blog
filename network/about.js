@@ -8,3 +8,8 @@ export function getSkills() {
 export function getAbout() {
   return request("/about/aboutMe?type=1");
 }
+
+// 获取ip
+export function getPosition() {
+  return request(`/user/get_position`);
+}

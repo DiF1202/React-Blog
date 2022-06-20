@@ -3,6 +3,7 @@ import { PersonWrap } from "./style";
 import { ManOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { SelfSelector } from "@/utils/common";
 import { BlogTheme } from "@/utils/constant";
+import Image from "next/image";
 const PersonInfo = () => {
   const { theme } = SelfSelector({ header: "theme" });
   return (
