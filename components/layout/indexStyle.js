@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LayoutWrap = styled.div`
   margin-top: 60px;
@@ -6,7 +6,7 @@ export const LayoutWrap = styled.div`
 
   .left-content {
     width: 57%;
-    /* z-index:2; */
+    z-index: 2;
     min-height: 900px;
     border: 1px solid #f2ebeb;
     background-color: rgba(255, 255, 255, 0.4);
@@ -15,7 +15,7 @@ export const LayoutWrap = styled.div`
   }
   .right-bar {
     min-width: 200px;
-    animation: ${(props) => (props.moveRight ? "move_right 0.6s ease-in" : "")};
+    animation: ${props => (props.moveRight ? 'move_right 0.6s ease-in' : '')};
     background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid #f2ebeb;
     box-shadow: 0 0 10px white;

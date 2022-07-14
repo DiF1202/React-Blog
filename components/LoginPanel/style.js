@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const LoginPanelWrap = styled.div`
   position: fixed;
@@ -8,12 +8,13 @@ export const LoginPanelWrap = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   left: 50%;
   top: 50%;
-  z-index: 99999;
+  /* z-index: 99999; */
   box-shadow: 0 0 10px white;
   border-radius: 5px;
   transition: transform 0.3s;
   transform-origin: 10px 10px;
   transform: translate(-50%, -50%);
+  z-index: 999;
   .email {
     display: flex;
   }

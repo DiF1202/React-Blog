@@ -1,14 +1,14 @@
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual } from 'react-redux';
 
 //工具函数 用来获取redux里面的state
 export function SelfSelector(obj) {
-  return useSelector((state) => {
+  return useSelector(state => {
     const keys = Object.keys(obj);
     const result = Object.create(null);
-    keys.forEach((key) => {
+    keys.forEach(key => {
       const value = obj[key];
       if (Array.isArray(value)) {
-        value.forEach((item) => {
+        value.forEach(item => {
           result[item] = state.getIn([key, item]);
         });
       } else {
@@ -21,7 +21,7 @@ export function SelfSelector(obj) {
 
 //获取时间
 export function getCurrentFormatTime() {
-  let startTime = new Date("2022-05-30"); // 开始时间
+  let startTime = new Date('2022-05-30'); // 开始时间
   let endTime = new Date(); // 结束时间
   let usedTime = endTime - startTime; // 相差的毫秒数
   let days = Math.floor(usedTime / (24 * 3600 * 1000)); // 计算出天数
@@ -31,7 +31,7 @@ export function getCurrentFormatTime() {
   let minutes = Math.floor(leavel2 / (60 * 1000)); // 计算剩余的分钟数
   let level3 = leavel2 - minutes * 60 * 1000;
   let seconds = Math.floor(level3 / 1000);
-  return days + "天" + hours + "时" + minutes + "分" + seconds + "秒";
+  return days + '天' + hours + '时' + minutes + '分' + seconds + '秒';
 }
 
 //防抖
@@ -54,7 +54,7 @@ export function getNodeInfo(nodeList) {
       href: `#${nodeList[i]?.children[0]?.id}`,
       title: nodeList[i]?.innerText,
       level: nodeList[i]?.localName.substr(1),
-      children: [],
+      children: []
     });
   }
   let finalArray = [];
@@ -76,4 +76,20 @@ export function getNodeInfo(nodeList) {
     }
   }
   return finalArray;
+}
+
+//
+export function InterSectionLazyLoad(childClassName, callBack) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > 0) {
+        callBack && callBack(entry);
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+  const children = document.getElementsByClassName(childClassName) || [];
+  [...children].forEach(child => {
+    observer.observe(child);
+  });
 }

@@ -6,7 +6,6 @@ const TagItem = (props) => {
   const { tag } = props;
   const router = useRouter();
   const handleTagClick = () => {
-    console.log(tag.tag_id);
     router.push({
       pathname: "/",
       query: {

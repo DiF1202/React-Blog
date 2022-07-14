@@ -1,23 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import Head from "next/head";
-import { List, Input, Pagination } from "antd";
-import { HomeMainWrap } from "../../styles/pages/home";
-import {
-  CalendarOutlined,
-  VideoCameraOutlined,
-  FireOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import Layout from "../../components/Layout/layout";
-import { useDispatch } from "react-redux";
-import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
-import { SelfSelector } from "@/utils/common";
-import { debounce } from "@/utils/common";
-import { BlogTheme } from "@/utils/constant";
-import ArticleItem from "../../components/AriticleItem";
-import { getRightTagsAction } from "@/redux/reducers/rightbar/actionCreators.js";
-import { getHomeArticles } from "@/network/home.js";
-import { useRouter } from "next/router";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Head from 'next/head';
+import { List, Input, Pagination } from 'antd';
+import { HomeMainWrap } from '../../styles/pages/home';
+import { CalendarOutlined, VideoCameraOutlined, FireOutlined, SearchOutlined } from '@ant-design/icons';
+import Layout from '../../components/Layout/layout';
+import { useDispatch } from 'react-redux';
+import { changMainMoveRight } from '../../components/Layout/store/actionCreators';
+import { SelfSelector } from '@/utils/common';
+import { debounce } from '@/utils/common';
+import { BlogTheme } from '@/utils/constant';
+import ArticleItem from '../../components/AriticleItem';
+import { getRightTagsAction } from '@/redux/reducers/rightbar/actionCreators.js';
+import { getHomeArticles } from '@/network/home.js';
+import { useRouter } from 'next/router';
+import { InterSectionLazyLoad } from '@/utils/common.js';
+
 const limit = 8;
 
 const Home = ({ articles, total, currentPage, tag_id }) => {
@@ -26,48 +23,42 @@ const Home = ({ articles, total, currentPage, tag_id }) => {
   const InputRef = useRef();
   const pageRef = useRef();
   const { theme } = SelfSelector({
-    header: "theme",
+    header: 'theme'
   });
   const router = useRouter();
   //设置一个数组 记录每个实战项目数组是否可见
   const [isShowArray, setIsShowArray] = useState(new Array(limit));
-  const [, updateState] = useState();
-  const io = useRef();
-  const forceUpdate = useCallback(() => updateState({}), []);
+
   //hooks
   useEffect(() => {
-    io.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          //记录数组是否可见
-          isShowArray[entry.target.className.split("homeItem")[1]] = true;
-          //更新数组
-          setIsShowArray(isShowArray);
-          forceUpdate();
-          io.current.unobserve(entry.target);
-        }
-      });
+    InterSectionLazyLoad('articeItem', entry => {
+      isShowArray[entry.target.className.split('homeItem')[1]] = true;
+      setIsShowArray([...isShowArray]);
     });
-  }, [forceUpdate, isShowArray]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [articles]);
+
   useEffect(() => {
     dispatch(changMainMoveRight(true));
   }, [dispatch]);
+
   useEffect(() => {
     dispatch(getRightTagsAction());
   }, [dispatch]);
+
   //换页按钮触发
   const pageChange = useCallback(
-    (e) => {
+    e => {
       for (let i in isShowArray) {
         isShowArray[i] = false;
       }
       setIsShowArray(isShowArray);
       router.push({
-        pathname: "/",
+        pathname: '/',
         query: {
           page: e,
-          tag_id,
-        },
+          tag_id
+        }
       });
     },
     [isShowArray, router, tag_id]
@@ -88,7 +79,7 @@ const Home = ({ articles, total, currentPage, tag_id }) => {
           <Input
             ref={InputRef}
             // onChange={(title) => onSearch(title)}
-            style={{ width: 150, borderRadius: 5, color: "#7a7a7a" }}
+            style={{ width: 150, borderRadius: 5, color: '#7a7a7a' }}
             suffix={<SearchOutlined />}
           />
         </div>
@@ -96,28 +87,21 @@ const Home = ({ articles, total, currentPage, tag_id }) => {
           {articles?.map((item, index) => {
             return (
               <div key={item.article_id}>
-                <ArticleItem
-                  index={index}
-                  isShow={isShowArray[index]}
-                  isShowArray={isShowArray}
-                  homeFontColor={BlogTheme[theme].homeFontColor}
-                  io={io}
-                  item={item}
-                ></ArticleItem>
+                <ArticleItem index={index} isShow={isShowArray[index]} isShowArray={isShowArray} homeFontColor={BlogTheme[theme].homeFontColor} item={item}></ArticleItem>
               </div>
             );
           })}
         </div>
         <div ref={pageRef}>
           <Pagination
-            className={"Pagination page"}
+            className={'Pagination page'}
             // defaultCurrent={parseInt(currentPage)}
             total={total}
             responsive={true}
             current={currentPage}
             showQuickJumper
             pageSize={limit}
-            onChange={(e) => pageChange(e)}
+            onChange={e => pageChange(e)}
           />
         </div>
       </HomeMainWrap>
@@ -126,7 +110,7 @@ const Home = ({ articles, total, currentPage, tag_id }) => {
 };
 
 //网络请求
-Home.getInitialProps = async (context) => {
+Home.getInitialProps = async context => {
   const { query } = context;
   const page = query?.page !== undefined ? query?.page : 1;
   const tag_id = query?.tag_id !== undefined ? query?.tag_id : -1;
@@ -136,7 +120,7 @@ Home.getInitialProps = async (context) => {
   if (articles?.length > 2) {
     for (let i = 0; i < articles.length; i++) {
       let item = articles[i];
-      if (item.isTop === 1) {
+      if (item.isTop === '1') {
         articles.splice(i, 1);
         articles.unshift(item);
       }
@@ -146,7 +130,7 @@ Home.getInitialProps = async (context) => {
     total: res?.data?.total,
     currentPage: parseInt(page),
     articles,
-    tag_id: parseInt(tag_id),
+    tag_id: parseInt(tag_id)
   };
 };
 

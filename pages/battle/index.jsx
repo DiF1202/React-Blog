@@ -1,37 +1,27 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import Layout from "../../components/Layout/layout";
-import Head from "next/head";
-import { useDispatch } from "react-redux";
-import { changMainMoveRight } from "../../components/Layout/store/actionCreators";
-import { SearchOutlined } from "@ant-design/icons";
-import { BattleWrap } from "../../styles/pages/battle";
-import { Input } from "antd";
-import ProductionItem from "../../components/ProcutionItem";
-import { getProductions } from "@/network/battle.js";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Layout from '../../components/Layout/layout';
+import Head from 'next/head';
+import { useDispatch } from 'react-redux';
+import { changMainMoveRight } from '../../components/Layout/store/actionCreators';
+import { SearchOutlined } from '@ant-design/icons';
+import { BattleWrap } from '../../styles/pages/battle';
+import { Input } from 'antd';
+import ProductionItem from '../../components/ProcutionItem';
+import { getProductions } from '@/network/battle.js';
+import { InterSectionLazyLoad } from '@/utils/common.js';
 
 const Battle = ({ productionList }) => {
   const dispatch = useDispatch();
   //设置一个数组 记录每个实战项目数组是否可见
   const [isShowArray, setIsShowArray] = useState([]);
 
-  //强制刷新 为什么要强刷？先放着
-  const [, updateState] = useState();
-  const io = useRef();
-  const forceUpdate = useCallback(() => updateState({}), []);
   useEffect(() => {
-    io.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          //记录数组是否可见
-          isShowArray[entry.target.className.split("battle")[1]] = true;
-          //更新数组
-          setIsShowArray(isShowArray);
-          forceUpdate();
-          io.current.unobserve(entry.target);
-        }
-      });
+    InterSectionLazyLoad('production', entry => {
+      isShowArray[entry.target.className.split('battle')[1]] = true;
+      setIsShowArray([...isShowArray]);
     });
-  }, [forceUpdate, isShowArray]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productionList]);
 
   //右边个人介绍动画控制
   useEffect(() => {
@@ -47,22 +37,11 @@ const Battle = ({ productionList }) => {
         <span className="info">
           实战与生活 <span> {productionList && productionList.length} </span> 篇
         </span>
-        <Input
-          style={{ width: 150, borderRadius: 5, color: "#7a7a7a" }}
-          suffix={<SearchOutlined />}
-        />
+        <Input style={{ width: 150, borderRadius: 5, color: '#7a7a7a' }} suffix={<SearchOutlined />} />
       </div>
       <div className="production_list">
         {productionList?.map((item, index) => {
-          return (
-            <ProductionItem
-              io={io}
-              isShow={isShowArray[index]}
-              item={item}
-              index={index}
-              key={item.production_id}
-            ></ProductionItem>
-          );
+          return <ProductionItem isShow={isShowArray[index]} item={item} index={index} key={item.production_id}></ProductionItem>;
         })}
       </div>
     </BattleWrap>
@@ -73,7 +52,7 @@ const Battle = ({ productionList }) => {
 Battle.getInitialProps = async () => {
   const res = await getProductions();
   return {
-    productionList: res?.data?.doc,
+    productionList: res?.data?.doc
   };
 };
 

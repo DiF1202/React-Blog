@@ -1,34 +1,21 @@
-import React, { useState, useEffect, memo } from "react";
-import { HeaderWrap } from "../Header/style";
-import { BlogTheme, getHeaderRenderIndexByWidth } from "../../utils/constant";
-import { useRouter } from "next/router";
-import { SelfSelector } from "../../utils/common";
-import { useDispatch } from "react-redux";
-import {
-  changMainMoveRight,
-  changeLoginPanelShow,
-  changeUserName,
-} from "../Layout/store/actionCreators";
-import { changeLeftVisibleAction } from "@/redux/reducers/drawer/actionCreators";
-import {
-  HomeOutlined,
-  BarChartOutlined,
-  EditOutlined,
-  WechatOutlined,
-  UserOutlined,
-  QqOutlined,
-  CaretDownOutlined,
-  MenuFoldOutlined,
-} from "@ant-design/icons";
-import Link from "next/link";
-import { Menu, Dropdown, message } from "antd";
+import React, { useState, useEffect, memo } from 'react';
+import { HeaderWrap } from '../Header/style';
+import { BlogTheme, getHeaderRenderIndexByWidth } from '../../utils/constant';
+import { useRouter } from 'next/router';
+import { SelfSelector } from '../../utils/common';
+import { useDispatch } from 'react-redux';
+import { changMainMoveRight, changeLoginPanelShow, changeUserName } from '../Layout/store/actionCreators';
+import { changeLeftVisibleAction } from '@/redux/reducers/drawer/actionCreators';
+import { HomeOutlined, BarChartOutlined, EditOutlined, WechatOutlined, UserOutlined, QqOutlined, CaretDownOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import { Menu, Dropdown, message } from 'antd';
 
 const routerMap = {
-  "/home": 0,
-  "/battle": 1,
-  "/life": 2,
-  "/interact": 3,
-  "/about": 4,
+  '/home': 0,
+  '/battle': 1,
+  '/life': 2,
+  '/interact': 3,
+  '/about': 4
 };
 
 const Header = () => {
@@ -43,21 +30,20 @@ const Header = () => {
     theme,
     screenWidth,
     visible,
-    username,
+    username
   } = SelfSelector({
-    header: ["isHidden", "theme"],
-    layout: ["screenWidth", "username"],
-    drawer: "visible",
+    header: ['isHidden', 'theme'],
+    layout: ['screenWidth', 'username'],
+    drawer: 'visible'
   });
   //hooks
   useEffect(() => {
     setRenderIndex(getHeaderRenderIndexByWidth(screenWidth, tabList));
-    console.log(renderIndex);
   }, [screenWidth]);
 
   useEffect(() => {
     setTimeout(() => {
-      window.dispatchEvent(new Event("resize"));
+      window.dispatchEvent(new Event('resize'));
     });
   }, []);
   useEffect(() => {
@@ -69,73 +55,60 @@ const Header = () => {
   };
   // 退出登录
   const loginOut = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("email");
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('email');
     dispatch(changeUserName(null));
-    message.success("成功退出");
+    message.success('成功退出');
   };
   const tabList = [
     {
-      title: "首页",
-      key: "home",
+      title: '首页',
+      key: 'home',
       icon: <HomeOutlined />,
-      link: "/home",
-      label: <Link href="/home">首页</Link>,
+      link: '/home',
+      label: <Link href="/home">首页</Link>
     }, // 菜单项务必填写 key
     {
-      title: "实战",
-      key: "battle",
+      title: '实战',
+      key: 'battle',
       icon: <EditOutlined />,
-      link: "/battle",
-      label: <Link href="/battle">实战</Link>,
+      link: '/battle',
+      label: <Link href="/battle">实战</Link>
     },
     {
-      title: "归档",
-      key: "life",
+      title: '归档',
+      key: 'life',
       icon: <BarChartOutlined />,
-      link: "/life",
-      label: <Link href="/life">归档</Link>,
+      link: '/life',
+      label: <Link href="/life">归档</Link>
     },
     {
-      title: "互动",
-      key: "interact",
+      title: '互动',
+      key: 'interact',
       icon: <WechatOutlined />,
-      link: "/interact",
-      label: <Link href="/interact">互动</Link>,
+      link: '/interact',
+      label: <Link href="/interact">互动</Link>
     },
     {
-      title: "关于",
-      key: "about",
+      title: '关于',
+      key: 'about',
       icon: <UserOutlined />,
-      link: "/about",
-      label: <Link href="/about">关于</Link>,
+      link: '/about',
+      label: <Link href="/about">关于</Link>
     },
     {
-      title: username ? "退出登录" : "邮箱登录",
-      key: "login",
+      title: username ? '退出登录' : '邮箱登录',
+      key: 'login',
       icon: <QqOutlined />,
-      label: username ? (
-        <span onClick={loginOut}>退出登录</span>
-      ) : (
-        <span onClick={showLogin}>登录</span>
-      ),
-    },
+      label: username ? <span onClick={loginOut}>退出登录</span> : <span onClick={showLogin}>登录</span>
+    }
   ];
   return (
-    <HeaderWrap
-      className="flex-wrap"
-      isHidden={isHidden}
-      ThemeColor={BlogTheme[theme].ThemeColor}
-      HoverColor={BlogTheme[theme].HoverColor}
-      fontColor={BlogTheme[theme].fontColor}
-    >
+    <HeaderWrap className="flex-wrap" isHidden={isHidden} ThemeColor={BlogTheme[theme].ThemeColor} HoverColor={BlogTheme[theme].HoverColor} fontColor={BlogTheme[theme].fontColor}>
       <div className="header-box">
-        <div
-          className="left-menu"
-          onClick={() => dispatch(changeLeftVisibleAction(!visible))}
-        >
+        <div className="left-menu" onClick={() => dispatch(changeLeftVisibleAction(!visible))}>
           <MenuFoldOutlined />
         </div>
         <div className="blog-info">
@@ -157,17 +130,14 @@ const Header = () => {
               return (
                 <div className="tab-item" key={item.key}>
                   <div
-                    className={[
-                      "nav-link",
-                      index === currentIndex ? "tab-active" : "",
-                    ].join(" ")}
+                    className={['nav-link', index === currentIndex ? 'tab-active' : ''].join(' ')}
                     onClick={() => {
                       // router.push(item.link);
                       dispatch(changMainMoveRight(false));
                       // setCurrentIndex(index);
                     }}
                   >
-                    {item.key !== "login" ? (
+                    {item.key !== 'login' ? (
                       <Link href={`${item.link}`}>
                         <div>
                           <span className="tab-item-icon">{item.icon}</span>
@@ -186,17 +156,12 @@ const Header = () => {
             })}
             {renderIndex !== 6 ? (
               <Dropdown overlay={<Menu items={tabList.slice(renderIndex)} />}>
-                <a
-                  className="ant-dropdown-link"
-                  style={{ color: "white", fontSize: "13px" }}
-                  href="@"
-                  onClick={(e) => e.preventDefault()}
-                >
+                <a className="ant-dropdown-link" style={{ color: 'white', fontSize: '13px' }} href="@" onClick={e => e.preventDefault()}>
                   <CaretDownOutlined />
                 </a>
               </Dropdown>
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>

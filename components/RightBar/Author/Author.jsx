@@ -68,7 +68,7 @@ const Author = () => {
             <EnvironmentOutlined /> 哔哩哔哩 / 网易
           </div>
           <div>前端: React + Next.js + Antd</div>
-          <div>后台: React + Vite + Antd</div>
+          <div>后台: Vue + ElementUI</div>
           <div>后端: Express + Mysql</div>
           <div>
             <MailOutlined /> 346274777@qq.com
